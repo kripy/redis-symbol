@@ -1,3 +1,6 @@
+require 'bundler/setup'
+Bundler.require(:default)
+
 require 'sinatra/base'
 require 'sinatra/assetpack'
 require 'compass'
@@ -61,7 +64,7 @@ class App < Sinatra::Base
 
   get '/' do
     @page_title = 'Page Title'
-    @local_uploads = settings.redis.get("something")
+    @local_uploads = redis.get("something")
     mustache :index
   end
 end
