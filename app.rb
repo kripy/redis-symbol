@@ -32,11 +32,6 @@ class App < Sinatra::Base
       '/js/vendor/jquery-1.9.1.min.js',
     ]
     js :app_js_modernizr, [ '/js/vendor/modernizr-2.6.2.min.js' ]
-
-    # Heroku doesn't like this call but assets end up minified anyway.
-    # Left them in in for reference.
-    #css_compression :sass
-    #js_compression  :jsmin
   end
 
   require "#{base}/app/helpers"
@@ -66,6 +61,7 @@ class App < Sinatra::Base
 
   get '/' do
     @page_title = 'Page Title'
+    @local_uploads = settings.redis.get("something")
     mustache :index
   end
 end
