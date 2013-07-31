@@ -2,11 +2,6 @@ require 'bundler/setup'
 Bundler.require(:default)
 
 require 'sinatra/base'
-require 'sinatra/assetpack'
-require 'compass'
-require 'compass-h5bp'
-require 'sinatra/support'
-require 'mustache/sinatra'
 require 'sinatra/redis'
 
 class App < Sinatra::Base
@@ -15,41 +10,7 @@ class App < Sinatra::Base
 
   configure do
     set :redis, ENV["REDISTOGO_URL"]
-  end
-
-  register Sinatra::AssetPack
-  register Sinatra::CompassSupport
-  register Mustache::Sinatra
-
-  set :sass, Compass.sass_engine_options
-  set :sass, { :load_paths => sass[:load_paths] + [ "#{base}/app/css" ] }
-
-  assets do
-    serve '/js',    from: 'app/js'
-    serve '/css',   from: 'app/css'
-    serve '/img',   from: 'app/img'
-
-    css :app_css, [ '/css/*.css' ]
-    js :app_js, [
-      '/js/*.js',
-      '/js/vendor/jquery-1.9.1.min.js',
-    ]
-    js :app_js_modernizr, [ '/js/vendor/modernizr-2.6.2.min.js' ]
-  end
-
-  require "#{base}/app/helpers"
-  require "#{base}/app/views/layout"
-
-  set :mustache, {
-    :templates => "#{base}/app/templates",
-    :views => "#{base}/app/views",
-    :namespace => App
-  }
-
-  before do
-    @css = css :app_css
-    @js  = js  :app_js
-    @js_modernizr = js :app_js_modernizr
+    puts redis
   end
 
   helpers do
@@ -64,7 +25,6 @@ class App < Sinatra::Base
 
   get '/' do
     @page_title = 'Page Title'
-    @local_uploads = redis.get("something")
-    mustache :index
+    @local_uploads = settings.redis.get("something")
   end
 end
