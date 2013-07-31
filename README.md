@@ -1,12 +1,6 @@
-# Frank's Famous
+# Redis Symbol
 
-Frank's Famous is an extension of [Pizza Man](https://github.com/kripy/pizza-man), bringing in [Sass](http://sass-lang.com/) support via [Sinatra Support](https://github.com/sinefunc/sinatra-support/), [HTML5 boilerplate](http://html5boilerplate.com/) support via [Compass H5bp](https://github.com/sporkd/compass-h5bp), and asset management via [Sinatra AssetPack](https://github.com/rstacruz/sinatra-assetpack). Phew. 
-
-Again it's a Heroku ready [Sinatra](http://www.sinatrarb.com/) app, running on [Unicorn](http://unicorn.bogomips.org/) with  [Mustache](http://mustache.github.io/) for templating.
-
-Check the code for the only real gotcha I came across, with Heroku seemingly not being able to deal with asset minification yet the assets were minified anyhow. Go figure.
-
-I also added an extra helper to load [Modernizr](http://modernizr.com/) before the HTML body start tag, as per the HTML5 boilerplate convention, with the rest of the JavaScript includes loading right before the end body tag.
+During my port of Trineo's [Resque example](https://github.com/trineo/resque-example) to [Unicorn](https://github.com/kripy/to-the-resque), I came across an issue with the [Sinatra Redis](https://github.com/bmizerany/sinatra-redis) gem. The issue being that I can't get it to work in a modular application. (Note this gem hasn't been touched in three odd years.) I do understand the difference between classic and modular Sinatra applications. I've read into how scope is affected by the top-level DSL versus subclassing in a modular application, which happens to be my preference. What I really want to get an idea of is if it's possible to run this gem in a modular application, and, get it working on Heroku.
 
 ## Installation
 
@@ -15,30 +9,15 @@ Firstly, make sure you've [installed Ruby](http://www.ruby-lang.org/en/). Also, 
 Then in terminal, clone me:
 
 ```
-$ git clone git@github.com:/kripy/franks-famous my-franks-famous
-$ cd my-franks-famous
+$ git clone https://github.com/kripy/redis-symbol redis-symbol
+$ cd redis-symbol
+$ bundle
 $ foreman start
 ```
 
-Open up a browser at ```http://localhost:5000/```: now you're cooking!
+Open up a browser at ```http://localhost:5000/``` and you'll get a big, fat, error.
 
-## Deployment
-
-If you don't already have one, sign up for a [Heroku](https://www.heroku.com/) account. Everything you need to know and do to deploy is in [Getting Started with Ruby on Heroku](https://devcenter.heroku.com/articles/ruby).
-
-In terminal, cd into your app:
-
-```
-$ cd my-franks-famous
-$ git init
-$ git add .
-$ git commit -m "init"
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-
-Then enjoy your slice of pizza pie!
+Pull request, anyone?
 
 ## MIT LICENSE
 
